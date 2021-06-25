@@ -11,7 +11,6 @@ public class UserService {
     @Autowired
     private UserRepository userEntityRepository;
 
-
     public User saveUser(User userEntity) {
         userEntity.setPassword((userEntity.getPassword()));
         return userEntityRepository.save(userEntity);

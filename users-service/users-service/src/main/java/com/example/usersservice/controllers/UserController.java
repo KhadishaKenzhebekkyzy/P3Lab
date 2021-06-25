@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UserController {
@@ -31,8 +33,20 @@ public class UserController {
     }
 
     @PostMapping("/sign-up")
-    public User signUp(@Validated @RequestBody User guest) {
-        return userRepository.save(guest);
+    public User signUp(@Validated @RequestBody User user) {
+        return userRepository.save(user);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public Map<String, Boolean> deleteGuest(@PathVariable(value = "id") Long id)
+    {
+        User user = userRepository.findById(id)
+                .orElseThrow();
+
+        userRepository.delete(user);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return response;
     }
 
 }

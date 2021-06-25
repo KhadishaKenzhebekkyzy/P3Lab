@@ -15,9 +15,6 @@ import java.util.stream.Collectors;
 public class CoursesCatalogControllers {
 
     @Autowired
-    private RestTemplate restTemplate;
-
-    @Autowired
     private CoursesCatalogRepository coursesCatalogRepository;
 
     @GetMapping("/get-courses")
@@ -27,14 +24,6 @@ public class CoursesCatalogControllers {
         return courses;
     }
 
-//    @RequestMapping("/{userId}")
-//    public List<CoursesCatalog> getCourses(@PathVariable String userId){
-//        CoursesCatalog course = restTemplate.getForObject("http://8081/courses", CoursesCatalog.class);
-//            return new CoursesCatalog(course.getName(), "Desc", rating.getRating());
-//        })
-//                .collect(Collectors.toList());
-//    }
-
     @PostMapping("/add-course")
     public String personAdd(@RequestParam String name, @RequestParam String description, @RequestParam Integer limit, @RequestParam String professor, Model model) {
         CoursesCatalog newCourse = new CoursesCatalog(name, description, limit, professor);
@@ -42,9 +31,9 @@ public class CoursesCatalogControllers {
         return "successfully added";
     }
 
-//    @RequestMapping("/{courseId}")
-//    public String getMovieDesc(@PathVariable("courseId") Long id){
-//        return CoursesCatalog;
-//    }
+    @RequestMapping("/{id}")
+    public CoursesCatalog getCourseInfo(@PathVariable("id") Long id){
+        return coursesCatalogRepository.getById(id);
+    }
 
 }

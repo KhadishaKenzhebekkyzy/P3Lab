@@ -8,19 +8,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    private String email;
-    private String password;
-
-    public User() {
-    }
-
-    public User(Long id, String email, String password) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-    }
-
     public Long getId() {
         return id;
     }
@@ -29,6 +16,8 @@ public class User {
         this.id = id;
     }
 
+    @Column(name = "email")
+    private String email;
     public String getEmail() {
         return email;
     }
@@ -37,11 +26,21 @@ public class User {
         this.email = email;
     }
 
+    @Column(name = "password")
+    private String password;
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public User() {
+    }
+
+    public User(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 }
